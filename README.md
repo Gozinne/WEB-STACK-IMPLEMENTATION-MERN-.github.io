@@ -26,8 +26,8 @@ MERN Stack is a collection of four distinct technologies that work together to c
 * R: [ReactJS](https://reactjs.org/docs/getting-started.html)
 * N: [NodeJS](https://www.simplilearn.com/tutorials/nodejs-tutorial/what-is-nodejs)
 
-When we apply the MERN stack we implement the display layer with React, the middle or application layer with Express and Node, and the database layer with MongoDB.
-In this MERN stack lesson, we will use these four technologies to create a simple To-do app.
+When we apply the Mern Stack, we implement the display layer with React, the middle or application layer with Expess and Node and the database layer with MongoDB.
+In this MERN Project, a simple To-Do app will be created using this four technologies.
 
 ### Why use MERN?
 
@@ -45,6 +45,7 @@ The following items are required to begin and complete this project.
 * Open an AWS EC2 instance.
 * Run the EC2 instance on Ubuntu and set the network security to: SSH,Port:22; HTTP,Port:80.
 * Connect VScode or MobaXterm to the EC2 instance and launch a new terminal.
+
 <img
   src= "https://user-images.githubusercontent.com/80969889/205724655-e00d1663-c950-482d-9a1c-123c34383383.png"
   alt="Alt text"
@@ -54,15 +55,85 @@ The following items are required to begin and complete this project.
 
 ## Backend Configuration
 
+Web apps' backends are built with MongoDB, Node.js, and Express. Database management, scripts, HTML pages, HTTP queries, and so on are all examples of this. 
+URLs are created using the MERN stack by developers. 
+They then use these URLs to create, read, and alter data stored and retrieved in the MongoDB database. 
+These URLs represent functions, and the originators are HTTP requests. 
+Requests are used to give data, and the server is in charge of modifying the database and returning everything in JSON format.
 
+### Install Node.Js
 
+// Update ubuntu
+```
+sudo apt update
+```
+// Upgrade ubuntu
+```
+sudo apt upgrade
+```
+// Get the Node.js software location from the Ubuntu repository
+```
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - 
+```
+<img
+  src= "https://user-images.githubusercontent.com/80969889/205729727-28f575f8-64c4-44b7-84b5-1be06b9c1a13.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
 
+// Use the command below to install Node.js
+```
+sudo apt-get install -y nodejs 
+```
+Please keep in mind that the command above installs both Node.js and [npm](https://docs.npmjs.com/cli/v6/commands/npm/). 
 
+// Use the command below to validate the node installation.
+```
+node -v 
+```
+//Use the command below to validate the NPM installation.
+```
+ npm -v 
+```
 
+<img
+  src= "https://user-images.githubusercontent.com/80969889/205731130-91e353ed-6220-412e-b663-27379cac31d6.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
 
+//Make a new directory for your To-Do list.
+```
+mkdir Todo
+```
+//Use the ls command to check that the Todo directory has been created
+```
+ls
+```
+//Change your current directory to the newly created directory
+```
+cd Todo
+```
+//Next use the command **npm init** to initialize this project, to create a package.json file 
+```
+npm init
+```
+This file will normally include information about your programme as well as the dependencies it needs to execute. 
+Follow the prompts after running the command. You can accept the default values by hitting **Enter** many times, then typing **yes** to authorise writing out the package.json file.
 
+//Ascertain that the package.json file has been produced.
+```
+ls
+```
 
-
+<img
+  src= "https://user-images.githubusercontent.com/80969889/205733860-05661f9a-1e18-44e2-942f-5b48a715ede4.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
 
 
 
