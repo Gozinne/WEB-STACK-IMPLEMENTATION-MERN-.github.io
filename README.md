@@ -446,7 +446,7 @@ As shown in the example below, add the connection string to access the database 
   title="Optional title"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
 ***
-Ensure to update <username>, <password>, <network-address> and <database> according to your setup.
+Ensure to update **username, password, network access and database** according to the connection string.
 
 In order for Node.js to connect to the database, we must modify index.js to reflect the use of.env. 
 Simply erase the file's present content and replace it with the whole code below.
@@ -495,10 +495,23 @@ console.log(`Server running on port ${port}`)
 });
 ```
 
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206312858-7dabf3c8-888d-475a-a48e-e70b4e30c18e.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
 // Start your server using the command
 ```
 node index.js
 ```
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206312929-463c7b4d-bb82-4b9a-b337-72be0ed24849.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
 
 #### Using a RESTful API to test backend code without frontend code
 
@@ -510,7 +523,7 @@ Click [Install Postman](https://www.getpostman.com/downloads/) to download and
 
 Learn how to use Postman's CRUD operations.
 
-Now open  Postman, create a POST request to the API http://<PublicIP-or-PublicDNS>:5000/api/todos. 
+Now open  Postman, create a POST request to the API http://PublicIP:5000/api/todos. 
 This request sends a new task to our To-Do list so the application could store it in the database.
 
 Make sure the header key **Content-Type** is set to **application/json**. 
@@ -525,13 +538,41 @@ This request returns all existing To-Do application entries (backend requests th
 
 Use the image below as a guide.
 
-You have now tested the backend of our To-Do application to ensure that it supports all three operations we required:
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206313305-9c5c5217-4f17-4ff7-90ff-14c349524e33.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206313345-0ab770c3-abde-45a2-9194-bae2ce414a75.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
 
+Then test the backend of our To-Do application to ensure that it supports all three operations we required:
 * Display a list of tasks – HTTP GET request
 * Add a new task to the list – HTTP POST request
 * Delete an existing task from the list – HTTP DELETE request
 
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206313398-69244e83-7c4a-4346-91c2-015d17471739.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206313711-e31388ef-99b9-4c60-9b72-3dbe4a896fdd.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+
 We've completed the Backend.
+
+## Frontend
 
 
 
