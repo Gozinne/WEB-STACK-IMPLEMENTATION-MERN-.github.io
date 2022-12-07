@@ -446,12 +446,92 @@ As shown in the example below, add the connection string to access the database 
   title="Optional title"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
 ***
+Ensure to update <username>, <password>, <network-address> and <database> according to your setup.
 
-DB = 'mongodb+srv://<username>:<password>@<network-address>/<dbname>?retryWrites=true&w=majority'
+In order for Node.js to connect to the database, we must modify index.js to reflect the use of.env. 
+Simply erase the file's present content and replace it with the whole code below.
 
-Ensure to update <username>, <password>, <network-address> and <database> according to your setup
+// Edit index.js
+```
+vim index.js
+```
+```
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const routes = require('./routes/api');
+const path = require('path');
+require('dotenv').config();
 
+const app = express();
 
+const port = process.env.PORT || 5000;
+
+//connect to the database
+mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+.then(() => console.log(`Database connected successfully`))
+.catch(err => console.log(err));
+
+//since mongoose promise is depreciated, we overide it with node's promise
+mongoose.Promise = global.Promise;
+
+app.use((req, res, next) => {
+res.header("Access-Control-Allow-Origin", "\*");
+res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+next();
+});
+
+app.use(bodyParser.json());
+
+app.use('/api', routes);
+
+app.use((err, req, res, next) => {
+console.log(err);
+next();
+});
+
+app.listen(port, () => {
+console.log(`Server running on port ${port}`)
+});
+```
+
+// Start your server using the command
+```
+node index.js
+```
+
+#### Using a RESTful API to test backend code without frontend code
+
+So far, we've built the backend of our To-Do app and set up a database, but we don't have a frontend UI, and we need a way to test the backend code without the frontend code. 
+This is where the [RESTfulL API](https://www.restapitutorial.com/) comes into play. 
+As a result, we'll need to test our code using an API development client, which is  Postman in this project.
+
+Click [Install Postman](https://www.getpostman.com/downloads/) to download and install postman on your machine.
+
+Learn how to use Postman's CRUD operations.
+
+Now open  Postman, create a POST request to the API http://<PublicIP-or-PublicDNS>:5000/api/todos. 
+This request sends a new task to our To-Do list so the application could store it in the database.
+
+Make sure the header key **Content-Type** is set to **application/json**. 
+
+// Send a GET request to your API 
+```
+http://PublicIP-or-PublicDNS>:5000/api/todos
+```
+This request returns all existing To-Do application entries (backend requests these records from the database and sends it us back as a response to GET request).
+
+**Optional assignment**: Determine how to make a DELETE request to remove an item from our To-Do list. Hint: To remove a task, submit its ID as part of the DELETE request.
+
+Use the image below as a guide.
+
+You have now tested the backend of our To-Do application to ensure that it supports all three operations we required:
+
+* Display a list of tasks – HTTP GET request
+* Add a new task to the list – HTTP POST request
+* Delete an existing task from the list – HTTP DELETE request
+
+We've completed the Backend.
 
 
 
