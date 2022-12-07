@@ -105,26 +105,26 @@ node -v
   style="display: inline-block; margin: 0 auto; max-width: 300px">
 ***
 
-//Make a new directory for your To-Do list.
+// Make a new directory for your To-Do list.
 ```
 mkdir Todo
 ```
-//Use the ls command to check that the Todo directory has been created
+// Use the ls command to check that the Todo directory has been created
 ```
 ls
 ```
-//Change your current directory to the newly created directory
+// Change your current directory to the newly created directory
 ```
 cd Todo
 ```
-//Next use this command to create a package.json file 
+// Next use this command to create a package.json file 
 ```
 npm init
 ```
 This file will normally include information about your programme as well as the dependencies it needs to execute. 
 Follow the prompts after running the command. You can accept the default values by hitting **Enter** many times, then typing **yes** to authorise writing out the package.json file.
 
-//Ascertain that the package.json file has been produced.
+// Ascertain that the package.json file has been produced.
 ```
 ls
 ```
@@ -226,7 +226,6 @@ This should be seen:
   title="Optional title"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
 ***
-Routes
 
 #### Routes
 
@@ -393,3 +392,88 @@ module.exports = router;
   title="Optional title"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
 ***
+
+### MongoDB
+
+We need a database to store our data. For this, mLab will be used. Since mLab provides the MongoDB database as a service (DBaaS), it is ideal to create a free shared clusters account. 
+Choose AWS as your cloud provider after signing up, and then finish the signup process by choosing a region close to you. 
+Complete a start-up checklist similar to the one in the image below.
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206303459-2bcd2001-661d-477d-8507-8caf5c9587b0.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206303565-c1db84c5-bb9d-4954-9b26-f70c3a4f2823.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206303669-2fd1812b-22be-4869-8a79-708d0debaa44.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+Although we haven't yet made this file, we specified process.env in the index.js file to access environment variables. 
+
+// As a result create in your Todo directory an .env file and edit
+```
+touch .env
+```
+```
+vi .env
+```
+As shown in the example below, add the connection string to access the database there.
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206305047-c6e8f251-b898-4e6b-994f-4a13eea0a1c0.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206305122-7011ddb4-92ef-4c4d-a619-c4cc2b2cb497.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206305258-a6960c42-126b-4d00-8957-6e346e82d35d.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+
+DB = 'mongodb+srv://<username>:<password>@<network-address>/<dbname>?retryWrites=true&w=majority'
+
+Ensure to update <username>, <password>, <network-address> and <database> according to your setup
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
