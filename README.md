@@ -574,8 +574,449 @@ We've completed the Backend.
 
 ## Frontend
 
+After the backend and API functionality have been completed, it is time to create a user interface for a Web client (browser) to interact with the program through  the API. To begin with the frontend of the To-Do app, we will use the create-react-app command to construct our project.
+
+// In the Todo directory, run
+```
+ npx create-react-app client
+```
+A new folder in the Todo directory called client the react code will bw added is created.
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206317555-c5815998-6a3b-4d69-a69e-23695a42495c.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+
+### Running a React App
+
+Before testing the react app, there are some dependencies that need to be installed.
+
+// Install [concurrently](https://www.npmjs.com/package/concurrently)
+```
+npm install concurrently --save-dev
+```
+// Install [nodemon](https://www.npmjs.com/package/nodemon)
+```
+npm install nodemon --save-dev
+```
+// In Todo folder open the package.json file. Change the highlighted part of the below screenshot and replace with the code below
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206317631-4c93415c-d44b-4d39-9fbc-f4cbc83e6cdd.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+```
+"scripts": {
+"start": "node index.js",
+"start-watch": "nodemon index.js",
+"dev": "concurrently \"npm run start-watch\" \"cd client && npm start\""
+},
+```
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206317846-290fca48-010d-4a08-b254-321fa9dba28a.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+
+### Configure Proxy in package.json
+
+// Change directory to ‘client’
+```
+cd client
+```
+// Open the package.json file
+```
+vi package.json
+```
+// Add the key value pair in the package.json file "proxy": "http://localhost:5000"
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206318113-f9290868-7e02-4e7c-af2c-9ee88e9bb5d7.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+The purpose of adding the proxy configuration  is to make it possible to access the application directly from the browser by simply calling the server url like http://localhost:5000 rather than always including the entire path like http://localhost:5000/api/todos
+
+// Ensure you are inside the Todo directory, and simply do
+```
+npm run dev
+```
+The app should open and start running on localhost:3000
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206318485-e85a4c20-7016-4ebb-8297-18b095ad79bc.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+Now a new port **3000** should be added to **inbound rules** under **security groups** on the EC2 instance in use for the above result to occur.
+
+### Creating React Components
+
+One of the advantages of react is that it employs reusable components, which makes programming more modular. 
+In our Todo app, there will be two stateful components and one stateless component.
+
+// From the Todo directory run
+```
+cd client
+```
+// Move to the src directory
+```
+cd src
+```
+// Create a folder called components
+```
+mkdir components
+```
+```
+cd components
+```
+// Inside ‘components’ directory create three files Input.js, ListTodo.js and Todo.js.
+```
+touch Input.js ListTodo.js Todo.js
+```
+// Open Input.js file
+```
+vi Input.js
+```
+// Copy and paste the following
+```
+import React, { Component } from 'react';
+import axios from 'axios';
+
+class Input extends Component {
+
+state = {
+action: ""
+}
+
+addTodo = () => {
+const task = {action: this.state.action}
+
+    if(task.action && task.action.length > 0){
+      axios.post('/api/todos', task)
+        .then(res => {
+          if(res.data){
+            this.props.getTodos();
+            this.setState({action: ""})
+          }
+        })
+        .catch(err => console.log(err))
+    }else {
+      console.log('input field required')
+    }
+
+}
+
+handleChange = (e) => {
+this.setState({
+action: e.target.value
+})
+}
+
+render() {
+let { action } = this.state;
+return (
+<div>
+<input type="text" onChange={this.handleChange} value={action} />
+<button onClick={this.addTodo}>add todo</button>
+</div>
+)
+}
+}
+
+export default Input
+```
+// Move to the src folder
+```
+cd ..
+```
+// Move to clients folder
+```
+cd ..
+```
+// Install [Axios](https://axios-http.com/docs/intro)
+```
+npm install axios
+```
+// Go to the ‘components’ directory
+```
+cd src/components
+```
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206322328-daa9fa3d-f50e-40c8-8bda-21136bef9e7c.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+// Open your ListTodo.js
+```
+vi ListTodo.js
+```
+// Copy and paste the following code
+```
+import React from 'react';
+
+const ListTodo = ({ todos, deleteTodo }) => {
+
+return (
+<ul>
+{
+todos &&
+todos.length > 0 ?
+(
+todos.map(todo => {
+return (
+<li key={todo._id} onClick={() => deleteTodo(todo._id)}>{todo.action}</li>
+)
+})
+)
+:
+(
+<li>No todo(s) left</li>
+)
+}
+</ul>
+)
+}
+
+export default ListTodo
+```
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206323159-37729d7b-5834-44b5-9c40-508cd7739a8a.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+// In Todo.js file write the following code
+```
+import React, {Component} from 'react';
+import axios from 'axios';
+
+import Input from './Input';
+import ListTodo from './ListTodo';
+
+class Todo extends Component {
+
+state = {
+todos: []
+
+componentDidMount(){
+this.getTodos();
+}
+
+getTodos = () => {
+axios.get('/api/todos')
+.then(res => {
+if(res.data){
+this.setState({
+todos: res.data
+})
+}
+})
+.catch(err => console.log(err))
+}
+
+deleteTodo = (id) => {
+
+    axios.delete(`/api/todos/${id}`)
+      .then(res => {
+        if(res.data){
+          this.getTodos()
+        }
+      })
+      .catch(err => console.log(err))
+
+}
+
+render() {
+let { todos } = this.state;
+
+    return(
+      <div>
+        <h1>My Todo(s)</h1>
+        <Input getTodos={this.getTodos}/>
+        <ListTodo todos={todos} deleteTodo={this.deleteTodo}/>
+      </div>
+    )
+
+}
+}
+
+export default Todo;
+```
+We need to make little adjustment to our react code. Delete the logo and adjust our App.js to look like this.
+
+// Move to the src folder and edit App.js
+```
+cd ..
+```
+```
+vi App.js
+```
+// Copy and paste the code below into it
+```
+import React from 'react';
+
+import Todo from './components/Todo';
+import './App.css';
+
+const App = () => {
+return (
+<div className="App">
+<Todo />
+</div>
+);
+}
+
+export default App;
+```
+<img
+  src="https://user-images.githubusercontent.com/80969889/206322904-1e64abec-ea29-4f20-955b-123fcbb90e05.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+// In the src directory open the App.css
+```
+vi App.css
+```
+// Then paste the following code into App.css
+```
+.App {
+text-align: center;
+font-size: calc(10px + 2vmin);
+width: 60%;
+margin-left: auto;
+margin-right: auto;
+}
+
+input {
+height: 40px;
+width: 50%;
+border: none;
+border-bottom: 2px #101113 solid;
+background: none;
+font-size: 1.5rem;
+color: #787a80;
+}
 
 
+input:focus {
+outline: none;
+}
+
+button {
+width: 25%;
+height: 45px;
+border: none;
+margin-left: 10px;
+font-size: 25px;
+background: #101113;
+border-radius: 5px;
+color: #787a80;
+cursor: pointer;
+}
+
+button:focus {
+outline: none;
+}
+
+ul {
+list-style: none;
+text-align: left;
+padding: 15px;
+background: #171a1f;
+border-radius: 5px;
+}
+
+li {
+padding: 15px;
+font-size: 1.5rem;
+margin-bottom: 15px;
+background: #282c34;
+border-radius: 5px;
+overflow-wrap: break-word;
+cursor: pointer;
+}
+
+@media only screen and (min-width: 300px) {
+.App {
+width: 80%;
+}
+
+input {
+width: 100%
+}
+
+button {
+width: 100%;
+margin-top: 15px;
+margin-left: 0;
+}
+}
+
+@media only screen and (min-width: 640px) {
+.App {
+width: 60%;
+}
+
+input {
+width: 50%;
+}
+
+button {
+width: 30%;
+margin-left: 10px;
+margin-top: 0;
+}
+}
+```
+
+<img
+  src= "https://user-images.githubusercontent.com/80969889/206322730-7ca61f1a-a6e6-49e3-88e5-0c8884dbd8b9.png"
+  alt="Alt text"
+  title="Optional title"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+***
+// In the src directory open the index.css
+```
+vim index.css
+```
+// Copy and paste the code below
+```
+body {
+margin: 0;
+padding: 0;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+sans-serif;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+box-sizing: border-box;
+background-color: #282c34;
+color: #787a80;
+}
+
+code {
+font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+monospace;
+}
+```
+// Go to the Todo directory run
+```
+npm run dev
+```
+Congratulations! You have just made a simple To-Do App and deployed it to MERN stack.
 
 
 
